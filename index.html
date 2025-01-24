@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function updateOptions(){
+            
+            const typeValue = document.getElementById('typeValue').value
+            const value1 = document.getElementById('value1')
+            const value2 = document.getElementById('value2')
+
+            value1.innerHTML = '';
+            value2.innerHTML = '';
+
+
+            const options = {
+                length: ['Metros', 'Kilometros', 'Millas', 'Pies'],
+                weight: ['Gramos', 'Kilogramos', 'Libras','Onzas'],
+                temperature: ['Celsius', 'Fahrenheit', 'Kelvin'],
+            }
+
+            options[typeValue].forEach(option => {
+                const option1 = document.createElement('option');
+                const option2 = document.createElement('option');
+
+                option1.value = option;
+                option1.textContent = option;
+                option2.value = option;
+                option2.textContent = option;
+
+                value1.appendChild(option1);
+                value2.appendChild(option2);
+            });
+        }
+
+        function calculate(){
+            const value1 = document.getElementById('value1').value
+            const value2 = document.getElementById('value2').value
+            const inputValue = document.getElementById('inputValue').value
+
+            // Conversión de longitud
+            if (value1 === "Metros") {
+                if (value2 === "Kilometros") result = inputValue / 1000;
+                if (value2 === "Millas") result = inputValue / 1609.34;
+                if (value2 === "Pies") result = inputValue * 3.28084;
+                if (value2 === "Metros") result = inputValue;
+            } else if (value1 === "Kilometros") {
+                if (value2 === "Metros") result = inputValue * 1000;
+                if (value2 === "Millas") result = inputValue / 1.60934;
+                if (value2 === "Pies") result = inputValue * 3280.84;
+                if (value2 === "Kilometros") result = inputValue;
+            } else if (value1 === "Millas") {
+                if (value2 === "Metros") result = inputValue * 1609.34;
+                if (value2 === "Kilometros") result = inputValue * 1.60934;
+                if (value2 === "Pies") result = inputValue * 5280;
+                if (value2 === "Millas") result = inputValue;
+            } else if (value1 === "Pies") {
+                if (value2 === "Metros") result = inputValue / 3.28084;
+                if (value2 === "Kilometros") result = inputValue / 3280.84;
+                if (value2 === "Millas") result = inputValue / 5280;
+                if (value2 === "Pies") result = inputValue;
+            }
+
+            // Conversión de peso
+            if (value1 === "Gramos") {
+                if (value2 === "Kilogramos") result = inputValue / 1000;
+                if (value2 === "Libras") result = inputValue * 0.00220462;
+                if (value2 === "Onzas") result = inputValue * 0.035274;
+                if (value2 === "Gramos") result = inputValue;
+            } else if (value1 === "Kilogramos") {
+                if (value2 === "Gramos") result = inputValue * 1000;
+                if (value2 === "Libras") result = inputValue * 2.20462;
+                if (value2 === "Onzas") result = inputValue * 35.274;
+                if (value2 === "Kilogramos") result = inputValue;
+            } else if (value1 === "Libras") {
+                if (value2 === "Gramos") result = inputValue / 0.00220462;
+                if (value2 === "Kilogramos") result = inputValue / 2.20462;
+                if (value2 === "Onzas") result = inputValue * 16;
+                if (value2 === "Libras") result = inputValue;
+            } else if (value1 === "Onzas") {
+                if (value2 === "Gramos") result = inputValue / 0.035274;
+                if (value2 === "Kilogramos") result = inputValue / 35.274;
+                if (value2 === "Libras") result = inputValue / 16;
+                if (value2 === "Onzas") result = inputValue;
+            }
+
+            // Conversión de temperatura
+            if (value1 === "Celsius") {
+                if (value2 === "Fahrenheit") result = (inputValue * 9/5) + 32;
+                if (value2 === "Kelvin") result = inputValue + 273.15;
+                if (value2 === "Celsius") result = inputValue;
+            } else if (value1 === "Fahrenheit") {
+                if (value2 === "Celsius") result = (inputValue - 32) * 5/9;
+                if (value2 === "Kelvin") result = (inputValue - 32) * 5/9 + 273.15;
+                if (value2 === "Fahrenheit") result = inputValue;
+            } else if (value1 === "Kelvin") {
+                if (value2 === "Celsius") result = inputValue - 273.15;
+                if (value2 === "Fahrenheit") result = (inputValue - 273.15) * 9/5 + 32;
+                if (value2 === "Kelvin") result = inputValue;
+            }
+            alert(`El resultado es: ${result}`);
+        }
+    </script>
+    
+    Medir
+    <select name="typeValue" id="typeValue" onchange="updateOptions()">
+        <option value="defaultOption">Seleccione el tipo de unidad</option>
+        <option value="length">Longitud</option>
+        <option value="weight">Peso</option>
+        <option value="temperature">Temperatura</option>
+    </select><br>
+
+    Pasar de...
+    <select name="value1" id="value1"></select><br>
+    
+    a...
+    <select name="value2" id="value2"></select><br>
+
+    Ingresar el valor
+    <input type="number" id="inputValue" name="inputValue">
+    <button onclick="calculate()">Calcular</button>
+</body>
+</html>
